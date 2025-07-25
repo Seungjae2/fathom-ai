@@ -7,34 +7,25 @@
     <!-- Material Symbols Outlined -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    />
-    <link
-      rel="stylesheet"
       href="{{ url_for('static', filename='chatstyle.css') }}"
     />
+    <link rel="stylesheet" href="chatstyle.css" />
   </head>
   <body>
     <!-- 헤더 -->
     <header class="chat-header">
-      <div class="header-title">
-        <span class="logo-title">i-bo 챗봇 상담</span>
-      </div>
+      <a href="{{ url_for('home') }}" class="back-btn">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <h1>i-bo 챗봇 상담</h1>
     </header>
 
     <!-- 채팅 메시지 영역 -->
-    <main>
-      <div id="chat-container" class="chat-container"></div>
-    </main>
+    <div id="chat-container" class="chat-container"></div>
 
     <!-- 입력 영역: 마이크 + 텍스트 + 전송 -->
-    <form id="chat-form" class="chat-input-area" autocomplete="off">
-      <button
-        id="mic-btn"
-        class="input-icon"
-        type="button"
-        aria-label="음성입력"
-      >
+    <div class="chat-input-area">
+      <button id="mic-btn" class="mic-btn" type="button">
         <span class="material-symbols-outlined">mic</span>
       </button>
       <input
@@ -43,19 +34,14 @@
         placeholder="질문을 입력하세요"
         autocomplete="off"
       />
-      <button id="send-btn" class="input-icon" type="submit" aria-label="전송">
-        <span class="material-symbols-outlined">arrow_forward</span>
+      <button id="send-btn" type="button">
+        <span class="material-symbols-outlined">send</span>
       </button>
-    </form>
+    </div>
 
-    <!-- 우측 FAQ 토글 버튼 (→ 아이콘) -->
-    <button
-      id="faq-toggle"
-      class="faq-toggle"
-      type="button"
-      aria-label="자주 묻는 질문 열기"
-    >
-      <span class="material-symbols-outlined">arrow_forward</span>
+    <!-- 우측 FAQ 토글 버튼 -->
+    <button id="faq-toggle" class="faq-toggle" type="button">
+      <span class="material-symbols-outlined">chevron_right</span>
     </button>
 
     <!-- FAQ 패널 (절대 제거 안 함) -->
@@ -69,10 +55,8 @@
         <li>수술비 청구하려면 어떤 서류가 필요하죠?</li>
       </ul>
     </aside>
-
-    <!-- 하단 점3개 메뉴 -->
     <div class="floating-menu">
-      <button id="menu-btn" class="menu-btn" aria-label="메뉴 열기">
+      <button id="menu-btn" class="menu-btn">
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
@@ -81,17 +65,13 @@
         <ul>
           <li id="menu-home">
             <span class="material-symbols-outlined">home</span>
-            Home
           </li>
           <li id="menu-history">
             <span class="material-symbols-outlined">history</span>
-            History
           </li>
         </ul>
       </div>
     </div>
-
-    <!-- 마크다운 파서/챗봇 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="{{ url_for('static', filename='chat.js') }}"></script>
   </body>

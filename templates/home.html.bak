@@ -22,14 +22,14 @@
 
     <header class="main-header">
       <div class="container">
-        <img src="{{ url_for('static', filename='ai-bo-logo-new.svg') }}" alt="Ai-bo 보험 상담 챗봇" class="logo" />
+        <img src="{{ url_for('static', filename='ai-bo-logo.svg') }}" alt="Ai-bo 보험 상담 챗봇" class="logo" />
         <span class="material-symbols-outlined menu-icon">menu</span>
       </div>
     </header>
 
     <main>
       <section class="hero-section">
-        <img src="{{ url_for('static', filename='ai-bo-logo-new.svg') }}" alt="Ai-bo 보험 상담 챗봇" class="logo" />
+        <img src="{{ url_for('static', filename='ai-bo-logo.svg') }}" alt="Ai-bo 보험 상담 챗봇" class="logo" />
         <h3 class="tagline">우리 아이만을 위한 맞춤상담 ai-bo</h3>
         <div class="search-container">
           <input type="text" id="search-input" />

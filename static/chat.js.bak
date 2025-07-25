@@ -163,7 +163,7 @@ document.querySelectorAll("#faq-panel li").forEach((item) => {
   });
 });
 
-// --- 초기 질문 처리 (URL 파라미터) ---
+// 10) 초기 질문 처리 (URL 파라미터)
 const params = new URLSearchParams(window.location.search);
 const initial = params.get("q");
 if (initial) {
@@ -172,8 +172,7 @@ if (initial) {
   history.push({ role: "user", content: decoded });
   callChatAPI();
 }
-
-// --- 하단 점3개 메뉴 기능 ---
+// 11) 하단 점3개 메뉴 기능
 const menuBtn = document.getElementById("menu-btn");
 const menuPanel = document.getElementById("menu-panel");
 const menuHome = document.getElementById("menu-home");
@@ -182,12 +181,17 @@ const menuHistory = document.getElementById("menu-history");
 menuBtn.addEventListener("click", () => {
   menuPanel.classList.toggle("open");
 });
+
 menuHome.addEventListener("click", () => {
   window.location.href = "/";
 });
+
 menuHistory.addEventListener("click", () => {
   alert("History 기능은 추후 업데이트 예정입니다!");
+  // 혹은 별도의 히스토리 페이지 연결 가능
 });
+
+// 외부 클릭 시 메뉴 닫힘
 document.addEventListener("click", (e) => {
   if (!menuBtn.contains(e.target) && !menuPanel.contains(e.target)) {
     menuPanel.classList.remove("open");
