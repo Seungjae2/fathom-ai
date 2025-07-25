@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>i-bo 챗봇 상담</title>
+    <!-- Material Symbols Outlined -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='chatstyle.css') }}"
+    />
+    <link rel="stylesheet" href="chatstyle.css" />
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header class="chat-header">
+      <a href="{{ url_for('home') }}" class="back-btn">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <h1>i-bo 챗봇 상담</h1>
+    </header>
+
+    <!-- 채팅 메시지 영역 -->
+    <div id="chat-container" class="chat-container"></div>
+
+    <!-- 입력 영역: 마이크 + 텍스트 + 전송 -->
+    <div class="chat-input-area">
+      <button id="mic-btn" class="mic-btn" type="button">
+        <span class="material-symbols-outlined">mic</span>
+      </button>
+      <input
+        type="text"
+        id="user-input"
+        placeholder="질문을 입력하세요"
+        autocomplete="off"
+      />
+      <button id="send-btn" type="button">
+        <span class="material-symbols-outlined">send</span>
+      </button>
+    </div>
+
+    <!-- 우측 FAQ 토글 버튼 -->
+    <button id="faq-toggle" class="faq-toggle" type="button">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+
+    <!-- FAQ 패널 (절대 제거 안 함) -->
+    <aside id="faq-panel" class="faq-panel">
+      <h2>자주 묻는 질문</h2>
+      <ul>
+        <li>해지 환급금이 뭐예요?</li>
+        <li>아이 치료비가 나왔어요. 청구하려면 어떻게 하나요?</li>
+        <li>보험 보장 범위를 확인하고 싶어요</li>
+        <li>입원했는데 보험금 받을 수 있나요?</li>
+        <li>수술비 청구하려면 어떤 서류가 필요하죠?</li>
+      </ul>
+    </aside>
+    <div class="floating-menu">
+      <button id="menu-btn" class="menu-btn">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </button>
+      <div id="menu-panel" class="menu-panel">
+        <ul>
+          <li id="menu-home">
+            <span class="material-symbols-outlined">home</span>
+          </li>
+          <li id="menu-history">
+            <span class="material-symbols-outlined">history</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='chat.js') }}"></script>
+  </body>
+</html>
