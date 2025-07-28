@@ -61,7 +61,10 @@ main {
 }
 .message {
   max-width: 80%;
+  /* ensure space for internal controls like the voice playback button */
   padding: 10px 15px;
+  /* hide any overflowing content so that elements like the TTS button don't spill outside the bubble */
+  overflow: hidden;
   border-radius: 20px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -79,6 +82,10 @@ main {
   color: var(--color-dark);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   align-self: flex-start;
+  /* increase the right and bottom padding on bot messages to accommodate the TTS button
+     so it remains within the speech bubble. */
+  padding-right: 45px;
+  padding-bottom: 28px;
 }
 /* ▼ TTS(음성재생) 버튼 */
 .tts-btn {

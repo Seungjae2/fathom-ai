@@ -1,18 +1,13 @@
-/* chatstyle.css (전부 교체) */
-
-/* 0. 컬러 변수 정의 */
 :root {
-  --color-primary: #00bbba; /* 밝은 청록색 */
-  --color-primary-dark: #005e5b; /* 진한 청록색 */
-  --color-secondary: #54b886; /* 녹색 */
-  --color-background: #def0f2; /* 연한 하늘색 */
-  --color-light: #e1e1e1; /* 연한 회색 */
-  --color-medium: #9f9f9f; /* 중간 회색 */
-  --color-dark: #434343; /* 어두운 회색 */
-  --color-accent: #008989; /* 강조색 */
+  --color-primary: #00bbba;
+  --color-primary-dark: #005e5b;
+  --color-secondary: #54b886;
+  --color-background: #def0f2;
+  --color-light: #e1e1e1;
+  --color-medium: #9f9f9f;
+  --color-dark: #434343;
+  --color-accent: #008989;
 }
-
-/* 1. 전체 초기화 */
 * {
   margin: 0;
   padding: 0;
@@ -23,13 +18,12 @@ body {
   height: 100%;
 }
 body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
-  background: #ffffff;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  background: var(--color-background);
 }
-
-/* 2. 헤더: 고정 높이 */
 .chat-header {
   flex: 0 0 60px;
   display: flex;
@@ -40,37 +34,40 @@ body {
   background: var(--color-primary);
   color: #fff;
   z-index: 10;
+  height: 60px;
 }
-.chat-header h1 {
+.header-title {
   font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
 }
-.back-btn {
-  text-decoration: none;
-  color: #fff;
+main {
+  flex: 1 1 auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
-
-/* 3. 채팅 컨테이너: 남은 영역 모두 차지 */
 .chat-container {
   flex: 1 1 auto;
   overflow-y: auto;
-  padding: 15px;
+  padding: 24px 16px 90px 16px;
+  box-sizing: border-box;
   background: var(--color-background);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  position: relative; /* 메뉴, FAQ 고정용 */
+  min-height: 0;
+  position: relative;
   z-index: 1;
 }
-
-/* 4. 메시지 스타일 */
 .message {
   max-width: 80%;
   padding: 10px 15px;
   border-radius: 20px;
-  line-height: 1.4;
+  line-height: 1.5;
   word-wrap: break-word;
+  font-size: 1rem;
+  position: relative;
+  /* (TTS 버튼 겹침 방지) */
 }
 .message.user {
   background: var(--color-primary);
@@ -83,153 +80,239 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   align-self: flex-start;
 }
-
-/* 5. 입력 영역: 고정 높이 */
-.chat-input-area {
-  flex: 0 0 60px;
+/* ▼ TTS(음성재생) 버튼 */
+.tts-btn {
+  position: absolute;
+  bottom: 7px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #76b7bb;
+  font-size: 1.35rem;
+  padding: 3px;
+  z-index: 2;
+  opacity: 0.77;
+  transition: opacity 0.13s;
+}
+.tts-btn:hover {
+  color: #00bbba;
+  opacity: 1;
+}
+.tts-btn .material-symbols-outlined {
+  font-size: 1.35em;
+}
+.message .markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.message .markdown-table th,
+.message .markdown-table td {
+  border: 1px solid #d5e2e6;
+  padding: 6px 10px;
+  font-size: 0.97em;
+}
+.chat-input-area,
+#chat-form {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
   display: flex;
   align-items: center;
   padding: 0 10px;
   border-top: 1px solid var(--color-light);
   background: #fff;
-  z-index: 5;
+  z-index: 20;
 }
-.chat-input-area input {
+#user-input {
   flex: 1;
   height: 40px;
-  padding: 0 12px;
+  padding: 0 14px;
   border: 1px solid var(--color-light);
-  border-radius: 20px 0 0 20px;
+  border-radius: 22px 0 0 22px;
   outline: none;
   font-size: 1rem;
+  margin: 0 7px 0 0;
+  background: #f8fbfb;
 }
-.chat-input-area input:focus {
+#user-input:focus {
   border-color: var(--color-primary);
 }
-.chat-input-area button {
-  width: 50px;
+.input-icon,
+#mic-btn,
+#send-btn {
+  width: 46px;
   height: 40px;
   border: none;
   background: var(--color-primary);
   color: #fff;
+  border-radius: 0 22px 22px 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.8rem;
   cursor: pointer;
+  margin-left: 0;
+  transition: background 0.13s;
 }
-.mic-btn {
-  width: 40px;
-  height: 40px;
-  margin-right: 5px;
+#mic-btn {
   background: transparent;
   color: var(--color-primary-dark);
+  border-radius: 50%;
+  margin-right: 5px;
 }
-.mic-btn:disabled {
-  opacity: 0.3;
+#mic-btn:disabled {
+  opacity: 0.25;
   cursor: default;
 }
-
-/* 6. 고정 위치 메뉴 (왼쪽 하단) */
-.chat-menu {
-  position: fixed;
-  left: 20px;
-  bottom: 80px; /* 입력창(60px) + 마진 */
-  z-index: 20;
+#send-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 0 22px 22px 0;
 }
-#menu-btn {
+.input-icon:hover,
+#send-btn:hover {
+  background: var(--color-accent);
+}
+.input-icon:active,
+#send-btn:active {
+  background: var(--color-secondary);
+}
+.floating-menu {
+  position: fixed;
+  bottom: 90px;
+  left: 20px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.menu-btn {
   width: 40px;
   height: 40px;
+  background: var(--color-primary);
   border: none;
-  background: var(--color-accent);
-  color: #fff;
   border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin-bottom: 7px;
+  transition: box-shadow 0.16s;
 }
-.menu-popup {
-  position: absolute;
-  left: 0;
-  bottom: 50px;
+.menu-btn .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  display: none;
-}
-.menu-popup.show {
+  margin: 2px 0;
   display: block;
 }
-.menu-popup ul {
+.menu-panel {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+  border: 1px solid #e0e0e0;
+  padding: 8px 0;
+  min-width: 120px;
+  display: none;
+  animation: fadein 0.16s;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+}
+.menu-panel.open {
+  display: block;
+}
+.menu-panel ul {
+  padding: 0;
+  margin: 0;
   list-style: none;
 }
-.menu-popup li button {
-  width: 100%;
-  padding: 10px 16px;
-  background: none;
-  border: none;
-  text-align: left;
+.menu-panel li {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 8px 20px;
   cursor: pointer;
-  font-size: 0.95rem;
-  color: var(--color-dark);
+  transition: background 0.11s;
 }
-.menu-popup li button:hover {
-  background: var(--color-background);
+.menu-panel li:hover {
+  background: #f3f7fa;
 }
-
-/* 7. FAQ 토글 버튼 (오른쪽 중간) */
+.menu-panel .material-symbols-outlined {
+  font-size: 21px;
+  margin-right: 8px;
+  color: #3ba891;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 .faq-toggle {
   position: fixed;
-  top: 120px; /* 헤더(60px) + 마진 */
+  top: 130px;
   right: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: var(--color-secondary);
   color: #fff;
-  border-radius: 20px 0 0 20px;
+  border-radius: 22px 0 0 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 20;
+  z-index: 30;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
 }
-
-/* 8. FAQ 패널 (오른쪽) */
+.faq-toggle .material-symbols-outlined {
+  font-size: 2rem;
+}
 .faq-panel {
   position: fixed;
-  top: 60px; /* 헤더 높이 */
-  right: -300px; /* 숨김 위치 */
-  width: 300px;
-  bottom: 60px; /* 입력창 높이 */
+  top: 60px;
+  right: -320px;
+  width: 320px;
+  bottom: 60px;
   background: #fff;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  transition: right 0.3s ease;
+  box-shadow: -2px 0 9px rgba(0, 0, 0, 0.1);
+  padding: 18px 16px;
+  transition: right 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   overflow-y: auto;
-  z-index: 15;
+  z-index: 29;
 }
 .faq-panel.open {
   right: 0;
 }
 .faq-panel h2 {
-  margin-bottom: 10px;
-  font-size: 1rem;
+  margin-bottom: 12px;
+  font-size: 1.07rem;
   color: var(--color-primary-dark);
-  font-weight: bold;
+  font-weight: 700;
 }
 .faq-panel ul {
   list-style: none;
 }
 .faq-panel li {
   background: var(--color-background);
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 12px;
+  padding: 11px 12px;
+  margin-bottom: 9px;
+  border-radius: 13px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--color-dark);
+  transition: background 0.13s;
 }
 .faq-panel li:hover {
   background: var(--color-primary);
