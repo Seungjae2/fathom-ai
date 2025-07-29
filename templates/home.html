@@ -103,38 +103,23 @@
             <span class="material-symbols-outlined">arrow_forward</span>
           </button>
         </div>
-        <div class="explore-more" id="explore-faq">
-          <span
-            >자주 묻는 질문 F&A
-            <span class="material-symbols-outlined">expand_more</span></span
-          >
-        </div>
         <div class="suggestion-buttons">
           <button>보험 용어 설명</button>
           <button>보장 범위 확인</button>
           <button>보험금 청구 절차</button>
         </div>
+        <div class="explore-more" id="explore-faq">
+          <span>자주 묻는 질문 F&A</span><span class="material-symbols-outlined">expand_more</span>
+        </div>
+        <section class="faq-section" id="faq-section">
+          <ul>
+            <li><a>태권도 학원에서 대련 중 치아가 깨졌습니다. 보상이 어떻게 되나요?</a></li>
+            <li><a>어린이보험에서 보장하지 않는 질병은 무엇인가요?</a></li>
+            <li><a>자전거 타다가 넘어져서 팔이 골절됐어요. 어떤 서류가 필요한가요?</a></li>
+          </ul>
+        </section>
       </section>
 
-      <section class="faq-section" id="faq-section">
-        <ul>
-          <li>
-            <a href="#"
-              >태권도 학원에서 대련 중 치아가 깨졌습니다. 보상이 어떻게
-              되나요?</a
-            >
-          </li>
-          <li>
-            <a href="#">어린이보험에서 보장하지 않는 질병은 무엇인가요?</a>
-          </li>
-          <li>
-            <a href="#"
-              >자전거 타다가 넘어져서 팔이 골절됐어요. 어떤 서류가
-              필요한가요?</a
-            >
-          </li>
-        </ul>
-      </section>
 
       <!-- Trusted by Section (밑 배너) -->
       <section class="trusted-by-section">
@@ -267,6 +252,37 @@
         searchButton.click();
       });
     });
+
+    const faqButtons = document.querySelectorAll(".faq-section a");
+
+faqButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    // 버튼 텍스트를 검색창에 넣기
+    searchInput.value = button.textContent;
+
+    // 검색 실행: 기존 검색 버튼 클릭 이벤트 재사용
+    searchButton.click();
+  });
+});
+// --- (강력 추천) 개선된 FAQ 토글 기능 스크립트 ---
+const faqToggleButton = document.getElementById('explore-faq');
+const faqSection = document.getElementById('faq-section');
+
+faqToggleButton.addEventListener('click', () => {
+  // 버튼의 화살표 아이콘 회전
+  faqToggleButton.classList.toggle('open');
+
+  // FAQ 섹션을 열고 닫기
+  if (faqSection.style.maxHeight) {
+    // 이미 열려있다면 (maxHeight 값이 있다면) 닫는다.
+    faqSection.style.maxHeight = null;
+    faqSection.classList.remove('open'); // 애니메이션을 위해 open 클래스 제거
+  } else {
+    // 닫혀있다면 내용의 실제 높이(scrollHeight)만큼 열어준다.
+    faqSection.classList.add('open'); // 애니메이션을 위해 open 클래스 추가
+    faqSection.style.maxHeight = faqSection.scrollHeight + "px";
+  }
+});
 
 
     </script>

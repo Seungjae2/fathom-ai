@@ -45,7 +45,8 @@ body {
   font-size: 34px;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 55px;
+  margin-top: 0;
+  margin-bottom: 40px;
   color: var(--text-color);
   background: var(--gradient-secondary);
   -webkit-background-clip: text;
@@ -132,7 +133,7 @@ a {
   text-align: center;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(12px);
-  margin: 0 20px;
+  margin: 20px;
   border-radius: 24px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
 }
@@ -620,7 +621,7 @@ a {
 
 /* FAQ 섹션 스타일 (정리된 버전) */
 .faq-section {
-  max-width: 800px;
+  max-width: 600px;
   margin: 10px auto 0; /* 위쪽 여백 (원하는 만큼 조절) */
   padding: 0 20px;
 
@@ -692,6 +693,7 @@ a {
 
 /* 화살표 아이콘이 회전하는 애니메이션(0.3초) 적용 */
 #explore-faq .material-symbols-outlined {
+  font-size: 15px;
   transition: transform 0.3s ease-in-out;
 }
 

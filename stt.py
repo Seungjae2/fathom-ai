@@ -1,4 +1,4 @@
-import os, time
+import os, time, requests
 from flask      import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from dotenv     import load_dotenv
@@ -60,6 +60,28 @@ def ask():
     if not q:
         return jsonify({"full":"질문이 비어 있습니다.","summary":""})
     return jsonify(query_assistant(q))
+
+@app.route("/api/get-speech-token", methods=["POST"])
+def get_speech_token():
+    """Azure Speech Service용 인증 토큰을 발급하는 API"""
+    speech_key = os.getenv("AZURE_SPEECH_KEY")
+    speech_region = os.getenv("AZURE_SPEECH_REGION")
+
+    if not speech_key or not speech_region:
+        return jsonify({"error": "Azure Speech 키 또는 지역이 설정되지 않았습니다."}), 500
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': speech_key,
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    url = f"https://{speech_region}.api.cognitive.microsoft.com/sts/v1.0/issueToken"
+
+    try:
+        response = requests.post(url, headers=headers)
+        response.raise_for_status()  # 오류 발생 시 예외를 발생시킴
+        return jsonify({"token": response.text, "region": speech_region})
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
