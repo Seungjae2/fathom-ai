@@ -325,3 +325,43 @@ main {
   background: var(--color-primary);
   color: #fff;
 }
+.message ul {
+  list-style: none;
+}
+
+/* --- PC 화면용 고정 레이아웃 (chatstyle.css 맨 아래에 추가) --- */
+@media screen and (min-width: 1024px) {
+
+  /* 1. 페이지 전체를 감싸는 body의 너비를 고정하고 중앙에 배치합니다. */
+  body {
+    width: 1280px;
+    margin: 0 auto;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 2. 화면 하단에 고정된 입력창의 위치와 너비를 재조정합니다. */
+  .chat-input-area, #chat-form {
+    width: 1280px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+
+  /* 3. 화면 좌하단 플로팅 메뉴의 위치를 재조정합니다. */
+  .floating-menu {
+    left: calc(50% - 640px + 20px); /* 1280px의 절반은 640px */
+  }
+
+  /* 4. (추가) 화면 우측 FAQ 토글 버튼의 위치를 재조정합니다. */
+  .faq-toggle {
+    /* 중앙 정렬된 body의 오른쪽 가장자리에 위치하도록 계산합니다. */
+    right: calc(50% - 640px);
+  }
+
+  /* 5. (추가) FAQ 패널이 열렸을 때의 위치를 재조정합니다. */
+  .faq-panel.open {
+    /* 토글 버튼과 마찬가지로 body의 오른쪽 가장자리에 맞춰서 열리도록 합니다. */
+    right: calc(50% - 640px);
+  }
+
+}
